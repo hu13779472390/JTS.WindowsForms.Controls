@@ -1,0 +1,11 @@
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\bin\Debug\Demonstration.exe.config
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\bin\Debug\Demonstration.exe
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\bin\Debug\Demonstration.pdb
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\bin\Debug\Controls.dll
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\bin\Debug\Controls.pdb
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.csprojResolveAssemblyReference.cache
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.Form1.resources
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.Properties.Resources.resources
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.csproj.GenerateResource.Cache
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.exe
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Demonstration\obj\Debug\Demonstration.pdb
