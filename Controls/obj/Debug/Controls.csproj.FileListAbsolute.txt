@@ -1,0 +1,7 @@
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\obj\Debug\Controls.csprojResolveAssemblyReference.cache
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\bin\Debug\Controls.dll
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\bin\Debug\Controls.pdb
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\obj\Debug\Controls.dll
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\obj\Debug\Controls.pdb
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\obj\Debug\Controls.Button.resources
+D:\Jase\Documents\Visual Studio 2015\Projects\Controls\Controls\Controls\obj\Debug\Controls.csproj.GenerateResource.Cache
