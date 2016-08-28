@@ -11,3 +11,6 @@ If you would like this button to behave as a Confirmation button, you must set i
 
 Note:
 If you are using the button to attain Agreement or Confirmation, you must handle the Confirmed event. You can do this from within the Properties pane or from within your code.
+
+### Contributions:
+Contributions are greatly appreciated and encouraged.
