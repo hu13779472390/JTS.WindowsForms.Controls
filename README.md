@@ -1,4 +1,6 @@
 # ConfirmationButton
+
+[![Join the chat at https://gitter.im/ConfirmationButton/Lobby](https://badges.gitter.im/ConfirmationButton/Lobby.svg)](https://gitter.im/ConfirmationButton/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 A ConfirmationButton for Windows Forms applications
 
 ConfirmationButton is a simple button that forces the user to confirm an action to prevent unintended results. Such as when deleting sensitive or important information or files, accepting terms and conditions or privacy policies, etc. The ConfirmationButton can also behave as a regular button.
