@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Controls
@@ -337,7 +330,6 @@ namespace Controls
                 }
             }
         }
-        #endregion
 
         public void Retry()
         {
@@ -348,6 +340,7 @@ namespace Controls
 
             this.Refresh();
         }
+        #endregion
 
         public Button()
         {
@@ -356,9 +349,7 @@ namespace Controls
             InitializeComponent();
             defaultBackgroundColor = this.BackColor;
         }
-
         
-
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
             if (RequiresConfirmation)

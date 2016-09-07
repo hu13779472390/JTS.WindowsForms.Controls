@@ -1,6 +1,5 @@
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\bin\Release\Controls.dll
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\bin\Release\Controls.pdb
-C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\obj\Release\Controls.csprojResolveAssemblyReference.cache
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\obj\Release\Controls.Button.resources
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\obj\Release\Controls.csproj.GenerateResource.Cache
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Controls\obj\Release\Controls.dll
