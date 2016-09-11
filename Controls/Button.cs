@@ -86,11 +86,11 @@ namespace Controls
         [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
         public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
 
-        //[Browsable(true), Category("Behavior"), Description("Indicates whether this control should have a textured background.")]
-        //public bool UsingTexturedBackground { get; set; }
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
+        public bool UsingTexturedBackground { get; set; }
 
-        //[Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this contorl.")]
-        //public TextureBrush BackgroundTexture { get; set; }
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this control.")]
+        public TextureBrush BackgroundTexture { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
