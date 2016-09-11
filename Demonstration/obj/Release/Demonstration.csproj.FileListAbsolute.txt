@@ -4,8 +4,8 @@ C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\bin\Release\Dem
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\bin\Release\Controls.dll
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\bin\Release\Controls.pdb
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.csprojResolveAssemblyReference.cache
-C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.ConfirmationDialog.resources
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.Properties.Resources.resources
+C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.Window.resources
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.csproj.GenerateResource.Cache
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.exe
 C:\Users\perso\Documents\GitHub\ConfirmationButton\Demonstration\obj\Release\Demonstration.pdb

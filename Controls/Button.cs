@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
 
 namespace Controls
@@ -90,7 +91,10 @@ namespace Controls
         public bool UsingTexturedBackground { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this control.")]
-        public TextureBrush BackgroundTexture { get; set; }
+        public Image BackgroundTexture { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the type of Layout to use for this Texture.")]
+        public ImageLayout BackgroundTextureLayout { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
@@ -101,6 +105,14 @@ namespace Controls
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the Border Thickness of the Check-mark.")]
         public float CheckmarkThickness { get; set; }
+
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
+        [Obsolete("In order to use this feature, cast it (not recommended).")]
+        public new Image BackgroundImage { get; set; }
+
+        [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
+        [Obsolete("In order to use this feature, cast it (not recommended).")]
+        public new Image BackgroundImageLayout { get; set; }
         #endregion
 
         #region Internal Declarations
@@ -116,7 +128,8 @@ namespace Controls
             Separator,
             Checkmark,
             CheckBoxFiller,
-            Image
+            Image,
+            TexturedBackground
         }
 
         protected internal static DrawTypes DrawType { get; set; }
@@ -362,6 +375,78 @@ namespace Controls
                             shouldFillCheckBoxArea = false;
                         }
                         break;
+                    case DrawTypes.TexturedBackground:
+                        if(this.BackgroundTexture != null)
+                        {
+                            Rectangle textureRectangle;
+
+                            switch (BackgroundTextureLayout)
+                            {
+                                case ImageLayout.None:
+                                    textureRectangle = new Rectangle(
+                                        new Point((int)this.BorderThickness, (int)this.BorderThickness),
+                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
+
+                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
+                                    {
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                    }
+                                    break;
+                                case ImageLayout.Center:
+                                    int xLocation, yLocation;
+
+                                    xLocation = (((this.Width / 2) - (this.BackgroundTexture.Width / 2) - ((int)this.BorderThickness * 2)));
+                                    yLocation = (((this.Height / 2) - (this.BackgroundTexture.Height / 2) - ((int)this.BorderThickness * 2)));
+
+                                    textureRectangle = new Rectangle(
+                                        new Point(xLocation, yLocation),
+                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
+
+                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
+                                    {
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                    }
+                                    break;
+                                case ImageLayout.Stretch:
+                                    textureRectangle = new Rectangle(
+                                        new Point((int)this.BorderThickness,
+                                        (int)this.BorderThickness),
+                                        new Size((this.Width - (int)this.BorderThickness),
+                                        (this.Height - (int)this.BorderThickness)));
+
+                                    using (TextureBrush textureBrush = new TextureBrush(
+                                        this.BackgroundTexture))
+                                    {
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                    }
+                                    break;
+                                case ImageLayout.Tile:
+                                    textureRectangle = new Rectangle(
+                                        new Point((int)this.BorderThickness,
+                                        (int)this.BorderThickness),
+                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
+
+                                    using (TextureBrush textureBrush = new TextureBrush(
+                                        this.BackgroundTexture, WrapMode.Tile))
+                                    {
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                    }
+                                    break;
+                                case ImageLayout.Zoom:
+                                    throw new NotImplementedException();
+                                default:
+                                    textureRectangle = new Rectangle(
+                                        new Point((int)this.BorderThickness, (int)this.BorderThickness),
+                                        new Size((this.Width - (int)this.BorderThickness), (this.Height - (int)this.BorderThickness)));
+
+                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
+                                    {
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                    }
+                                    break;
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -391,6 +476,11 @@ namespace Controls
             {
                 if (ticked)
                 {
+                    /* Always draw the Texture (Image) first, otherwise it
+                     * will just render over the other drawings.
+                     */
+                    Draw(paintEventArgs, DrawTypes.TexturedBackground);
+
                     if (shouldFillCheckBoxArea)
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
@@ -398,10 +488,11 @@ namespace Controls
                     Draw(paintEventArgs, DrawTypes.Checkmark);
                     Draw(paintEventArgs, DrawTypes.Separator);
                     Draw(paintEventArgs, DrawTypes.Text);
-
                 }
                 else
                 {
+                    Draw(paintEventArgs, DrawTypes.TexturedBackground);
+
                     if (shouldFillCheckBoxArea)
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
@@ -412,6 +503,8 @@ namespace Controls
             }
             else
             {
+                Draw(paintEventArgs, DrawTypes.TexturedBackground);
+
                 Draw(paintEventArgs, DrawTypes.Border);
                 Draw(paintEventArgs, DrawTypes.Text);
             }
