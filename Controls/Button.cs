@@ -83,18 +83,24 @@ namespace Controls
         [Browsable(true), Category("Behavior"), Description("Indicates whether this control requires confirmation.")]
         public bool RequiresConfirmation { get; set; }
 
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
+        public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
+
         //[Browsable(true), Category("Behavior"), Description("Indicates whether this control should have a textured background.")]
         //public bool UsingTexturedBackground { get; set; }
 
         //[Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this contorl.")]
         //public TextureBrush BackgroundTexture { get; set; }
 
-        //[Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
-        //public Color CheckmarkColor { get; set; }
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
+        public Color CheckmarkColor { get; set; }
 
         [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
         // The recommended - and minimum - default distance, is 27 pixels.
         public int SeparatorDistance { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the Border Thickness of the Check-mark.")]
+        public float CheckmarkThickness { get; set; }
         #endregion
 
         #region Internal Declarations
@@ -302,11 +308,40 @@ namespace Controls
                         }
                         break;
                     case DrawTypes.Checkmark:
-                        paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
-                                    7, 15, 11, 18);
+                        Color checkmarkColor;
+                        float thickness = 1.0f;
 
-                        paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
+                        if (this.SynchronizeCheckMarkWithBorderSettings)
+                        {
+                            checkmarkColor = this.BorderColor.IsEmpty ? this.ForeColor : this.BorderColor;
+                            thickness = this.BorderThickness;
+                        }
+                        else
+                        {
+                            checkmarkColor = this.CheckmarkColor.IsEmpty ? this.ForeColor : this.CheckmarkColor;
+                            thickness = CheckmarkThickness;
+                        }
+
+                        paintEventArgs.Graphics.DrawLine(
+                            new Pen(
+                                checkmarkColor,
+                                thickness),
+                            7, 15, 11, 18);
+                        paintEventArgs.Graphics.DrawLine(
+                            new Pen(
+                                checkmarkColor,
+                                thickness),
                             11, 18, 18, 10);
+
+                        checkmarkColor = Color.Empty;
+                        thickness = 1.0f;
+
+                        // [PENDING DEPRECATION: 11/09/2016]
+                        //paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
+                        //            7, 15, 11, 18);
+
+                        //paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
+                        //    11, 18, 18, 10);
                         break;
                     case DrawTypes.Image:
                         break;
