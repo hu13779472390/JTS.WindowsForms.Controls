@@ -48,3 +48,8 @@ Temporary Items
 /Demonstration/Resources/TranslucentDots1.png
 /Demonstration/Resources/TranslucentDots.png
 /Demonstration/Resources/3D-Wolves-HD-Desktop-Pictures-HD-Wallpaper.jpeg
+
+# Directories generated from compiling projects
+*/bin/
+*/obj/
+.vs/
