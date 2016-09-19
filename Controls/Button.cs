@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -376,74 +377,46 @@ namespace Controls
                         }
                         break;
                     case DrawTypes.TexturedBackground:
-                        if(this.BackgroundTexture != null)
+                        if (BackgroundTexture != null)
                         {
-                            Rectangle textureRectangle;
-
-                            switch (BackgroundTextureLayout)
+                            // Create a mapping of all image layout types to functions that generate rectangles for that type
+                            Dictionary<ImageLayout, Func<Rectangle>> LayoutMap = new Dictionary<ImageLayout, Func<Rectangle>>()
                             {
-                                case ImageLayout.None:
-                                    textureRectangle = new Rectangle(
-                                        new Point((int)this.BorderThickness, (int)this.BorderThickness),
-                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
-
-                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
+                                { ImageLayout.None,     () => new Rectangle(new Point((int)BorderThickness, (int)BorderThickness), new Size(BackgroundTexture.Width, BackgroundTexture.Height)) },
+                                { ImageLayout.Stretch,  () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
+                                { ImageLayout.Tile,     () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
+                                { ImageLayout.Zoom,     () => { throw new NotImplementedException("Zoom is not yet supported for the confirmation button."); } },
+                                { ImageLayout.Center,   () =>
                                     {
-                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                        int xLocation = (Width / 2) - (BackgroundTexture.Width / 2) - ((int)BorderThickness * 2);
+                                        int yLocation = (Height / 2) - (BackgroundTexture.Height / 2) - ((int)BorderThickness * 2);
+
+                                        return new Rectangle(new Point(xLocation, yLocation), new Size(BackgroundTexture.Width, BackgroundTexture.Height));
                                     }
-                                    break;
-                                case ImageLayout.Center:
-                                    int xLocation, yLocation;
+                                }
+                            };
 
-                                    xLocation = (((this.Width / 2) - (this.BackgroundTexture.Width / 2) - ((int)this.BorderThickness * 2)));
-                                    yLocation = (((this.Height / 2) - (this.BackgroundTexture.Height / 2) - ((int)this.BorderThickness * 2)));
-
-                                    textureRectangle = new Rectangle(
-                                        new Point(xLocation, yLocation),
-                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
-
-                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
+                            // Attempt to get a rectangle generating function from the dictionary defined above.
+                            // Because the ImageLayout type is an enum, we don't need a default case (as the default case will be ImageLayout.None)
+                            Func<Rectangle> GenerateLayout;
+                            if (LayoutMap.TryGetValue(BackgroundTextureLayout, out GenerateLayout))
+                            {
+                                // If the layout mode is anything other than tile, just draw the image:
+                                if (BackgroundTextureLayout != ImageLayout.Tile)
+                                {
+                                    using (TextureBrush textureBrush = new TextureBrush(BackgroundTexture))
                                     {
-                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, GenerateLayout());
                                     }
-                                    break;
-                                case ImageLayout.Stretch:
-                                    textureRectangle = new Rectangle(
-                                        new Point((int)this.BorderThickness,
-                                        (int)this.BorderThickness),
-                                        new Size((this.Width - (int)this.BorderThickness),
-                                        (this.Height - (int)this.BorderThickness)));
-
-                                    using (TextureBrush textureBrush = new TextureBrush(
-                                        this.BackgroundTexture))
+                                }
+                                // Otherwise, use a tiling brush and fill the rectangle with the texture
+                                else
+                                {
+                                    using (TextureBrush textureBrush = new TextureBrush(BackgroundTexture, WrapMode.Tile))
                                     {
-                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
+                                        paintEventArgs.Graphics.FillRectangle(textureBrush, GenerateLayout());
                                     }
-                                    break;
-                                case ImageLayout.Tile:
-                                    textureRectangle = new Rectangle(
-                                        new Point((int)this.BorderThickness,
-                                        (int)this.BorderThickness),
-                                        new Size(this.BackgroundTexture.Width, this.BackgroundTexture.Height));
-
-                                    using (TextureBrush textureBrush = new TextureBrush(
-                                        this.BackgroundTexture, WrapMode.Tile))
-                                    {
-                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
-                                    }
-                                    break;
-                                case ImageLayout.Zoom:
-                                    throw new NotImplementedException();
-                                default:
-                                    textureRectangle = new Rectangle(
-                                        new Point((int)this.BorderThickness, (int)this.BorderThickness),
-                                        new Size((this.Width - (int)this.BorderThickness), (this.Height - (int)this.BorderThickness)));
-
-                                    using (TextureBrush textureBrush = new TextureBrush(this.BackgroundTexture))
-                                    {
-                                        paintEventArgs.Graphics.DrawImage(textureBrush.Image, textureRectangle);
-                                    }
-                                    break;
+                                }
                             }
                         }
                         break;
@@ -469,7 +442,7 @@ namespace Controls
             InitializeComponent();
             defaultBackgroundColor = this.BackColor;
         }
-        
+
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
             if (RequiresConfirmation)
