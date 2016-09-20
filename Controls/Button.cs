@@ -96,9 +96,12 @@ namespace Controls
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the type of Layout to use for this Texture.")]
         public ImageLayout BackgroundTextureLayout { get; set; }
-
+        
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
+        
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
+        public Color ConfirmedCheckmarkColor { get; set; }
 
         [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
         // The recommended - and minimum - default distance, is 27 pixels.
@@ -333,6 +336,12 @@ namespace Controls
                         else
                         {
                             checkmarkColor = this.CheckmarkColor.IsEmpty ? this.ForeColor : this.CheckmarkColor;
+                            thickness = CheckmarkThickness;
+                        }
+
+                        if (confirmed)
+                        {
+                            checkmarkColor = ConfirmedCheckmarkColor;
                             thickness = CheckmarkThickness;
                         }
 
