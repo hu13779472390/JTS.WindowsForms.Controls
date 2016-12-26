@@ -24,4 +24,4 @@ Note:
 If you are using the button to attain Agreement or Confirmation, you must handle the `Confirmed` event. You can do this from within the Properties pane or from within your code.
 
 ### Contributions:
-Contributions are greatly appreciated and encouraged.
+Contributions are greatly appreciated and encouraged. When contributing, make sure to push to the Development branch. Once your changes have been approved, then will be merged with master.
