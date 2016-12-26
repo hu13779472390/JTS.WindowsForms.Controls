@@ -358,13 +358,6 @@ namespace Controls
 
                         checkmarkColor = Color.Empty;
                         thickness = 1.0f;
-
-                        // [PENDING DEPRECATION: 11/09/2016]
-                        //paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
-                        //            7, 15, 11, 18);
-
-                        //paintEventArgs.Graphics.DrawLine(new Pen(ForeColor, BorderThickness),
-                        //    11, 18, 18, 10);
                         break;
                     case DrawTypes.Image:
                         break;
