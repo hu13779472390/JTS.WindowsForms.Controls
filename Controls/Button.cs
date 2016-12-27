@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace Controls
+namespace JTS.WindowsForms.Controls
 {
     public partial class Button : Control
     {
@@ -141,6 +142,7 @@ namespace Controls
         #endregion
 
         #region Methods
+
         public void PerformClick()
         {
             if (Clicked != null)
@@ -435,6 +437,18 @@ namespace Controls
 
             this.Refresh();
         }
+        
+        private void SetStyles()
+        {
+            // Caching the text will give us ~1.5% performance boost.
+            this.SetStyle(ControlStyles.CacheText, true);
+
+            // Allows the control to be properly redrawn if/when it is resized (physically or dynamically).
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
+
+            // Helps to prevent flickering when the control (or a part of it) is redrawn.
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        }
         #endregion
 
         // Helps to prevent flickering controls on the Form level.
@@ -466,14 +480,7 @@ namespace Controls
 
             InitializeComponent();
 
-            // Caching the text will give us ~1.5% performance boost.
-            this.SetStyle(ControlStyles.CacheText, true);
-
-            // Allows the control to be properly redrawn if/when it is resized (physically or dynamically).
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-
-            // Helps to prevent flickering when the control (or a part of it) is redrawn.
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyles();
 
             defaultBackgroundColor = this.BackColor;
         }
