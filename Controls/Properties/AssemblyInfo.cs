@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConfirmationButton")]
-[assembly: AssemblyDescription("A Confirmation Button for Windows Forms applications.")]
+[assembly: AssemblyTitle("JTS.WindowsForms.Controls")]
+[assembly: AssemblyDescription("A useful and customizable control suite for Windows Forms applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jason Pezzimenti")]
-[assembly: AssemblyProduct("ConfirmationButton")]
+[assembly: AssemblyProduct("JTS.WindowsForms.Controls")]
 [assembly: AssemblyCopyright("Copyright © Jason Pezzimenti 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
