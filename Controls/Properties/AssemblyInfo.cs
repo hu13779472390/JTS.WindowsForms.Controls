@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Controls")]
+[assembly: AssemblyTitle("ConfirmationButton")]
 [assembly: AssemblyDescription("A Confirmation Button for Windows Forms applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jason Pezzimenti")]
-[assembly: AssemblyProduct("Controls")]
+[assembly: AssemblyProduct("ConfirmationButton")]
 [assembly: AssemblyCopyright("Copyright © Jason Pezzimenti 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.5.0")]
+[assembly: AssemblyFileVersion("1.1.5.0")]

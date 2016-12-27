@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new Controls.Button();
+            this.button1 = new JTS.WindowsForms.Controls.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -72,7 +72,7 @@
 
         #endregion
 
-        private Controls.Button button1;
+        private JTS.WindowsForms.Controls.Button button1;
     }
 }
 

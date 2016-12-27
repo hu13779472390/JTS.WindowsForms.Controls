@@ -7,7 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
 
-namespace Controls
+namespace JTS.WindowsForms.Controls
 {
     public partial class Button : Control
     {
@@ -142,6 +142,7 @@ namespace Controls
         #endregion
 
         #region Methods
+
         public void PerformClick()
         {
             if (Clicked != null)

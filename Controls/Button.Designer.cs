@@ -1,4 +1,4 @@
-﻿namespace Controls
+﻿namespace JTS.WindowsForms.Controls
 {
     partial class Button
     {
