@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Demonstration
+{
+    public partial class Window : Form
+    {
+        public Window()
+        {
+            InitializeComponent();
+        }
+
+        private void launchSelectedDemonstrationButton_Click(object sender, EventArgs e)
+        {
+            switch(controlSelectionComboBox.Text)
+            {
+                case "Confirmation Button":
+                    // TODO: Create form and open it here.
+
+                    // Get Dialog Result and Confirmation.
+                    break;
+            }
+        }
+    }
+}
