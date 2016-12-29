@@ -28,31 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.greetingText = new System.Windows.Forms.Label();
             this.instructionText = new System.Windows.Forms.Label();
             this.controlSelectionComboBox = new System.Windows.Forms.ComboBox();
             this.launchSelectedDemonstrationButton = new System.Windows.Forms.Button();
+            this.confirmationText = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // greetingText
-            // 
-            this.greetingText.AutoEllipsis = true;
-            this.greetingText.Dock = System.Windows.Forms.DockStyle.Top;
-            this.greetingText.Location = new System.Drawing.Point(0, 0);
-            this.greetingText.Name = "greetingText";
-            this.greetingText.Size = new System.Drawing.Size(446, 62);
-            this.greetingText.TabIndex = 0;
-            this.greetingText.Text = "Thank you for downloading JTS.WindowsForms.Controls. Inside this solution, you wi" +
-    "ll find useful controls for WinForms apps. These controls are both aesthetically" +
-    " pleasing, and very customizable.";
-            this.greetingText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // instructionText
             // 
             this.instructionText.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.instructionText.AutoSize = true;
             this.instructionText.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.instructionText.Location = new System.Drawing.Point(138, 83);
+            this.instructionText.Location = new System.Drawing.Point(138, 21);
             this.instructionText.Margin = new System.Windows.Forms.Padding(3, 12, 3, 0);
             this.instructionText.Name = "instructionText";
             this.instructionText.Size = new System.Drawing.Size(171, 21);
@@ -68,7 +55,7 @@
             "Confirmation Button",
             "Switch",
             "Separator"});
-            this.controlSelectionComboBox.Location = new System.Drawing.Point(122, 107);
+            this.controlSelectionComboBox.Location = new System.Drawing.Point(122, 45);
             this.controlSelectionComboBox.Name = "controlSelectionComboBox";
             this.controlSelectionComboBox.Size = new System.Drawing.Size(203, 21);
             this.controlSelectionComboBox.TabIndex = 2;
@@ -76,7 +63,7 @@
             // launchSelectedDemonstrationButton
             // 
             this.launchSelectedDemonstrationButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.launchSelectedDemonstrationButton.Location = new System.Drawing.Point(186, 134);
+            this.launchSelectedDemonstrationButton.Location = new System.Drawing.Point(186, 72);
             this.launchSelectedDemonstrationButton.Name = "launchSelectedDemonstrationButton";
             this.launchSelectedDemonstrationButton.Size = new System.Drawing.Size(75, 23);
             this.launchSelectedDemonstrationButton.TabIndex = 3;
@@ -84,15 +71,27 @@
             this.launchSelectedDemonstrationButton.UseVisualStyleBackColor = true;
             this.launchSelectedDemonstrationButton.Click += new System.EventHandler(this.launchSelectedDemonstrationButton_Click);
             // 
+            // confirmationText
+            // 
+            this.confirmationText.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.confirmationText.AutoSize = true;
+            this.confirmationText.ForeColor = System.Drawing.Color.ForestGreen;
+            this.confirmationText.Location = new System.Drawing.Point(195, 111);
+            this.confirmationText.Name = "confirmationText";
+            this.confirmationText.Size = new System.Drawing.Size(57, 13);
+            this.confirmationText.TabIndex = 4;
+            this.confirmationText.Text = "Canceled.";
+            this.confirmationText.Visible = false;
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 180);
+            this.ClientSize = new System.Drawing.Size(446, 133);
+            this.Controls.Add(this.confirmationText);
             this.Controls.Add(this.launchSelectedDemonstrationButton);
             this.Controls.Add(this.controlSelectionComboBox);
             this.Controls.Add(this.instructionText);
-            this.Controls.Add(this.greetingText);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Window";
             this.ShowIcon = false;
@@ -104,11 +103,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Label greetingText;
         private System.Windows.Forms.Label instructionText;
         private System.Windows.Forms.ComboBox controlSelectionComboBox;
         private System.Windows.Forms.Button launchSelectedDemonstrationButton;
+        private System.Windows.Forms.Label confirmationText;
     }
 }
 
