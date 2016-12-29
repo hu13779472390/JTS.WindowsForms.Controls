@@ -118,6 +118,9 @@ namespace JTS.WindowsForms.Controls
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("")]
+        public bool StyleButtonSeparately { get; set; }
         #endregion
 
         #region Internal Declarations
