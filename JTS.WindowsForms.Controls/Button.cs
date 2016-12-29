@@ -119,8 +119,17 @@ namespace JTS.WindowsForms.Controls
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
 
-        [Browsable(true), Category("Appearance"), Description("")]
+        [Browsable(true), Category("Behavior"), Description("")]
         public bool StyleButtonSeparately { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance")]
+        public Color CheckboxBackgroundColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxHighlightColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxActiveColor { get; set; }
         #endregion
 
         #region Internal Declarations
