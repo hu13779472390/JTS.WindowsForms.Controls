@@ -118,6 +118,18 @@ namespace JTS.WindowsForms.Controls
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("")]
+        public bool StyleButtonSeparately { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance")]
+        public Color CheckboxBackgroundColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxHighlightColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxActiveColor { get; set; }
         #endregion
 
         #region Internal Declarations
@@ -474,6 +486,10 @@ namespace JTS.WindowsForms.Controls
             }
         }
 
+        #region Constructor
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Button()
         {
             this.DoubleBuffered = true;
@@ -484,6 +500,7 @@ namespace JTS.WindowsForms.Controls
 
             defaultBackgroundColor = this.BackColor;
         }
+        #endregion
 
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
@@ -519,7 +536,6 @@ namespace JTS.WindowsForms.Controls
             else
             {
                 Draw(paintEventArgs, DrawTypes.TexturedBackground);
-
                 Draw(paintEventArgs, DrawTypes.Border);
                 Draw(paintEventArgs, DrawTypes.Text);
             }
