@@ -384,36 +384,9 @@ namespace JTS.WindowsForms.Controls
                     case DrawTypes.CheckBoxFiller:
                         if (shouldFillCheckBoxArea)
                         {
-                            if (StyleButtonSeparately)
+                            using (SolidBrush brush = new SolidBrush(ActiveColor))
                             {
-                                if (this.mouseHasEntered)
-                                {
-                                    using (SolidBrush brush = new SolidBrush(this.CheckboxHighlightColor))
-                                    {
-                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
-                                    }
-                                }
-                                else if (this.mouseButtonIsDown)
-                                {
-                                    using (SolidBrush brush = new SolidBrush(this.CheckboxActiveColor))
-                                    {
-                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
-                                    }
-                                }
-                                else
-                                {
-                                    using (SolidBrush brush = new SolidBrush(this.CheckboxBackgroundColor))
-                                    {
-                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                using (SolidBrush brush = new SolidBrush(ActiveColor))
-                                {
-                                    paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
-                                }
+                                paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
                             }
 
                             shouldFillCheckBoxArea = false;

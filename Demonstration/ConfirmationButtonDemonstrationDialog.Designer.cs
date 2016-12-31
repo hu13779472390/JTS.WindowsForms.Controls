@@ -32,8 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.confirmationButton = new JTS.WindowsForms.Controls.Button();
             this.regularCancelButton = new JTS.WindowsForms.Controls.Button();
+            this.confirmationButton = new JTS.WindowsForms.Controls.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,33 +73,6 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Size: 86 bytes";
             // 
-            // confirmationButton
-            // 
-            this.confirmationButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(206)))), ((int)(((byte)(206)))));
-            this.confirmationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.confirmationButton.BackgroundImageLayout = null;
-            this.confirmationButton.BackgroundTexture = null;
-            this.confirmationButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
-            this.confirmationButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
-            this.confirmationButton.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this.confirmationButton.BorderThickness = 1F;
-            this.confirmationButton.CheckmarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
-            this.confirmationButton.CheckmarkThickness = 0F;
-            this.confirmationButton.ConfirmedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(233)))), ((int)(((byte)(201)))));
-            this.confirmationButton.ConfirmedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
-            this.confirmationButton.ConfirmedCheckmarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
-            this.confirmationButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.confirmationButton.Location = new System.Drawing.Point(306, 144);
-            this.confirmationButton.Name = "confirmationButton";
-            this.confirmationButton.RequiresConfirmation = true;
-            this.confirmationButton.SeparatorDistance = 27;
-            this.confirmationButton.Size = new System.Drawing.Size(85, 27);
-            this.confirmationButton.SynchronizeCheckMarkWithBorderSettings = true;
-            this.confirmationButton.TabIndex = 4;
-            this.confirmationButton.Text = "Delete";
-            this.confirmationButton.UsingTexturedBackground = false;
-            this.confirmationButton.Confirmed += new System.EventHandler<JTS.WindowsForms.Controls.Button.ButtonConfirmedEventArgs>(this.confirmationButton_Confirmed);
-            // 
             // regularCancelButton
             // 
             this.regularCancelButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(224)))), ((int)(((byte)(235)))));
@@ -110,6 +83,9 @@
             this.regularCancelButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(155)))), ((int)(((byte)(190)))));
             this.regularCancelButton.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             this.regularCancelButton.BorderThickness = 1F;
+            this.regularCancelButton.CheckboxActiveColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.CheckboxBackgroundColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.CheckboxHighlightColor = System.Drawing.Color.Empty;
             this.regularCancelButton.CheckmarkColor = System.Drawing.Color.Empty;
             this.regularCancelButton.CheckmarkThickness = 0F;
             this.regularCancelButton.ConfirmedBackgroundColor = System.Drawing.Color.Empty;
@@ -121,11 +97,43 @@
             this.regularCancelButton.RequiresConfirmation = false;
             this.regularCancelButton.SeparatorDistance = 0;
             this.regularCancelButton.Size = new System.Drawing.Size(85, 27);
+            this.regularCancelButton.StyleButtonSeparately = false;
             this.regularCancelButton.SynchronizeCheckMarkWithBorderSettings = false;
             this.regularCancelButton.TabIndex = 5;
             this.regularCancelButton.Text = "Cancel";
             this.regularCancelButton.UsingTexturedBackground = false;
             this.regularCancelButton.Clicked += new System.EventHandler<JTS.WindowsForms.Controls.Button.ButtonClickedEventArgs>(this.regularCancelButton_Clicked);
+            // 
+            // confirmationButton
+            // 
+            this.confirmationButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.confirmationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.confirmationButton.BackgroundImageLayout = null;
+            this.confirmationButton.BackgroundTexture = null;
+            this.confirmationButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
+            this.confirmationButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
+            this.confirmationButton.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.confirmationButton.BorderThickness = 1F;
+            this.confirmationButton.CheckboxActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.confirmationButton.CheckboxBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.confirmationButton.CheckboxHighlightColor = System.Drawing.Color.Empty;
+            this.confirmationButton.CheckmarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
+            this.confirmationButton.CheckmarkThickness = 0F;
+            this.confirmationButton.ConfirmedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(233)))), ((int)(((byte)(201)))));
+            this.confirmationButton.ConfirmedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
+            this.confirmationButton.ConfirmedCheckmarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
+            this.confirmationButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.confirmationButton.Location = new System.Drawing.Point(306, 144);
+            this.confirmationButton.Name = "confirmationButton";
+            this.confirmationButton.RequiresConfirmation = true;
+            this.confirmationButton.SeparatorDistance = 27;
+            this.confirmationButton.Size = new System.Drawing.Size(85, 27);
+            this.confirmationButton.StyleButtonSeparately = true;
+            this.confirmationButton.SynchronizeCheckMarkWithBorderSettings = true;
+            this.confirmationButton.TabIndex = 4;
+            this.confirmationButton.Text = "Delete";
+            this.confirmationButton.UsingTexturedBackground = false;
+            this.confirmationButton.Confirmed += new System.EventHandler<JTS.WindowsForms.Controls.Button.ButtonConfirmedEventArgs>(this.confirmationButton_Confirmed);
             // 
             // ConfirmationButtonDemonstrationDialog
             // 
