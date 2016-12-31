@@ -384,9 +384,36 @@ namespace JTS.WindowsForms.Controls
                     case DrawTypes.CheckBoxFiller:
                         if (shouldFillCheckBoxArea)
                         {
-                            using (SolidBrush brush = new SolidBrush(ActiveColor))
+                            if (StyleButtonSeparately)
                             {
-                                paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                if (this.mouseHasEntered)
+                                {
+                                    using (SolidBrush brush = new SolidBrush(this.CheckboxHighlightColor))
+                                    {
+                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                    }
+                                }
+                                else if (this.mouseButtonIsDown)
+                                {
+                                    using (SolidBrush brush = new SolidBrush(this.CheckboxActiveColor))
+                                    {
+                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                    }
+                                }
+                                else
+                                {
+                                    using (SolidBrush brush = new SolidBrush(this.CheckboxBackgroundColor))
+                                    {
+                                        paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (SolidBrush brush = new SolidBrush(ActiveColor))
+                                {
+                                    paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                }
                             }
 
                             shouldFillCheckBoxArea = false;
@@ -486,6 +513,10 @@ namespace JTS.WindowsForms.Controls
             }
         }
 
+        #region Constructor
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Button()
         {
             this.DoubleBuffered = true;
@@ -496,6 +527,7 @@ namespace JTS.WindowsForms.Controls
 
             defaultBackgroundColor = this.BackColor;
         }
+        #endregion
 
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
@@ -531,7 +563,6 @@ namespace JTS.WindowsForms.Controls
             else
             {
                 Draw(paintEventArgs, DrawTypes.TexturedBackground);
-
                 Draw(paintEventArgs, DrawTypes.Border);
                 Draw(paintEventArgs, DrawTypes.Text);
             }
