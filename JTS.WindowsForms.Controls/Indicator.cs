@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JTS.WindowsForms.Controls.ProgressBar
+namespace JTS.WindowsForms.Controls
 {
     interface Indicator
     {

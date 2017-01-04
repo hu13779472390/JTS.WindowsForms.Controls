@@ -56,7 +56,7 @@
     <Compile Include="ProgressBar.Designer.cs">
       <DependentUpon>ProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProgressBar\Indicator.cs" />
+    <Compile Include="Indicator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

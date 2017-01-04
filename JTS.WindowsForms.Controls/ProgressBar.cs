@@ -28,7 +28,6 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(false), Category("Appearance")]
         public override Color BackColor { get; set; }
-        #endregion
 
         [Browsable(true), Category("Behavior"), Description("Gets or sets the lower bound of the range that this Progress Bar is working with.")]
         public int Minimum { get; set; }
@@ -41,6 +40,7 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(true), Category("Behavior"), Description("Gets or sets the current value of the ProgressBar, in the raneg specified by the Minimum and Maximum properties.")]
         public int Value { get; set; }
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of this control with its default settings.
@@ -95,4 +95,28 @@ namespace JTS.WindowsForms.Controls
 
         }
     }
+
+    // TODO: Put this somewhere useful.
+    //namespace JTS.WindowsForms.Controls.ProgressBar
+    //{
+    //    interface Indicator
+    //    {
+    //        int Identifier { get; set; }
+    //        string Operation { get; set; }
+    //        RectangleF Rectangle { get; set; }
+    //    }
+
+    //    public class SuccessIndicator : Indicator
+    //    {
+    //        int Indicator.Identifier { get; set; }
+    //        string Indicator.Operation { get; set; }
+    //        RectangleF Indicator.Rectangle { get; set; }
+
+    //        public Color Color { get; set; }
+    //        public bool HasBorder { get; set; }
+    //        public Color BorderColor { get; set; }
+    //        public int BorderThickness { get; set; }
+    //        public bool Selectable { get; set; }
+    //    }
+    //}
 }
