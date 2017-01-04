@@ -77,7 +77,6 @@
             // 
             this.regularCancelButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(224)))), ((int)(((byte)(235)))));
             this.regularCancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
-            this.regularCancelButton.BackgroundImageLayout = null;
             this.regularCancelButton.BackgroundTexture = null;
             this.regularCancelButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
             this.regularCancelButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(155)))), ((int)(((byte)(190)))));
@@ -108,7 +107,6 @@
             // 
             this.confirmationButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.confirmationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
-            this.confirmationButton.BackgroundImageLayout = null;
             this.confirmationButton.BackgroundTexture = null;
             this.confirmationButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
             this.confirmationButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
