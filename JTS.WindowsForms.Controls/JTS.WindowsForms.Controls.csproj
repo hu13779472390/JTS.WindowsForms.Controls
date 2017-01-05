@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Indicator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SuccessIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Button.resx">
