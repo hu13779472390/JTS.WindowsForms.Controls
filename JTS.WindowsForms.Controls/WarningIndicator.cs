@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace JTS.WindowsForms.Controls
 {
-    class SuccessIndicator : Indicator
+    class WarningIndicator : Indicator
     {
         int Indicator.Identifier { get; set; }
         int Indicator.Value { get; set; }
