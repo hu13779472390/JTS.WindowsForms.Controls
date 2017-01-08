@@ -119,6 +119,7 @@ namespace JTS.WindowsForms.Controls
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
 
+        [Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
         [Browsable(true), Category("Behavior"), Description("")]
         public bool StyleButtonSeparately { get; set; }
 
@@ -460,6 +461,8 @@ namespace JTS.WindowsForms.Controls
 
             // Helps to prevent flickering when the control (or a part of it) is redrawn.
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            this.SetStyle(ControlStyles.Selectable, true);
         }
         #endregion
 
