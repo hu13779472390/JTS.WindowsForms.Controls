@@ -77,6 +77,7 @@
             // 
             this.regularCancelButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(224)))), ((int)(((byte)(235)))));
             this.regularCancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.regularCancelButton.BackgroundImageLayout = null;
             this.regularCancelButton.BackgroundTexture = null;
             this.regularCancelButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
             this.regularCancelButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(97)))), ((int)(((byte)(155)))), ((int)(((byte)(190)))));
@@ -90,6 +91,8 @@
             this.regularCancelButton.ConfirmedBackgroundColor = System.Drawing.Color.Empty;
             this.regularCancelButton.ConfirmedBorderColor = System.Drawing.Color.Empty;
             this.regularCancelButton.ConfirmedCheckmarkColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.FocusedBorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            this.regularCancelButton.FocusedColor = System.Drawing.Color.Empty;
             this.regularCancelButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(235)))), ((int)(((byte)(242)))));
             this.regularCancelButton.Location = new System.Drawing.Point(215, 144);
             this.regularCancelButton.Name = "regularCancelButton";
@@ -107,6 +110,7 @@
             // 
             this.confirmationButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.confirmationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(241)))), ((int)(((byte)(241)))));
+            this.confirmationButton.BackgroundImageLayout = null;
             this.confirmationButton.BackgroundTexture = null;
             this.confirmationButton.BackgroundTextureLayout = System.Windows.Forms.ImageLayout.None;
             this.confirmationButton.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
@@ -120,6 +124,8 @@
             this.confirmationButton.ConfirmedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(233)))), ((int)(((byte)(201)))));
             this.confirmationButton.ConfirmedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
             this.confirmationButton.ConfirmedCheckmarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(134)))), ((int)(((byte)(189)))), ((int)(((byte)(100)))));
+            this.confirmationButton.FocusedBorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.confirmationButton.FocusedColor = System.Drawing.Color.Silver;
             this.confirmationButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.confirmationButton.Location = new System.Drawing.Point(306, 144);
             this.confirmationButton.Name = "confirmationButton";
@@ -146,6 +152,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ConfirmationButtonDemonstrationDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ConfirmationButton Demonstration";
             this.ResumeLayout(false);
             this.PerformLayout();
