@@ -461,6 +461,8 @@ namespace JTS.WindowsForms.Controls
 
             // Helps to prevent flickering when the control (or a part of it) is redrawn.
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            this.SetStyle(ControlStyles.Selectable, true);
         }
         #endregion
 
