@@ -115,8 +115,6 @@ namespace JTS.WindowsForms.Controls
             }
         }
 
-        private void Draw(DrawTypes)
-
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
             if (RenderBorder)
