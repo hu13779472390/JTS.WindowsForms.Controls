@@ -83,15 +83,6 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Appearance"), Description("Gets or sets the default border thickness for this control.")]
         public float BorderThickness { get; set; }
 
-        [Browsable(true), Category("Behavior"), Description("Indicates whether this control requires confirmation.")]
-        public bool RequiresConfirmation { get; set; }
-
-        [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
-        public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
-
-        [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
-        public bool UsingTexturedBackground { get; set; }
-
         [Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this control.")]
         public Image BackgroundTexture { get; set; }
 
@@ -104,10 +95,6 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color ConfirmedCheckmarkColor { get; set; }
 
-        [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
-        // The recommended - and minimum - default distance, is 27 pixels.
-        public int SeparatorDistance { get; set; }
-
         [Browsable(true), Category("Appearance"), Description("Gets or sets the Border Thickness of the Check-mark.")]
         public float CheckmarkThickness { get; set; }
 
@@ -118,10 +105,6 @@ namespace JTS.WindowsForms.Controls
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
-
-        [Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
-        [Browsable(true), Category("Behavior"), Description("")]
-        public bool StyleButtonSeparately { get; set; }
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance")]
         public Color CheckboxBackgroundColor { get; set; }
@@ -137,6 +120,29 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the style of the Focus border.")]
         public DashStyle FocusedBorderStyle { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the background color of the control when it is disabled.")]
+        public Color DisabledBackgroundColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the border color of the control when it is disabled.")]
+        public Color DisabledBorderColor { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Indicates whether this control requires confirmation.")]
+        public bool RequiresConfirmation { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
+        public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
+        public bool UsingTexturedBackground { get; set; }
+
+        [Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
+        [Browsable(true), Category("Behavior"), Description("")]
+        public bool StyleButtonSeparately { get; set; }
+
+        [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
+        // The recommended - and minimum - default distance, is 27 pixels.
+        public int SeparatorDistance { get; set; }
         #endregion
 
         #region Internal Declarations
@@ -288,6 +294,20 @@ namespace JTS.WindowsForms.Controls
 
             if (paintEventArgs != null)
             {
+                // If the control is currently Disabled...
+                Color borderColor, backgroundColor;
+
+                if (!this.Enabled)
+                {
+                    // Let the user know
+                    borderColor = DisabledBorderColor;
+                }
+                else
+                {
+                    // either way...
+                    borderColor = BorderColor;
+                }
+
                 switch (drawType)
                 {
                     case DrawTypes.Border:
@@ -295,18 +315,15 @@ namespace JTS.WindowsForms.Controls
                         {
                             if (buttonHasFocus)
                             {
-                                if (buttonHasFocus)
+                                using (Pen borderPen = new Pen(BorderColor, BorderThickness))
                                 {
-                                    using (Pen borderPen = new Pen(BorderColor, BorderThickness))
-                                    {
-                                        borderPen.DashStyle = FocusedBorderStyle;
+                                    borderPen.DashStyle = FocusedBorderStyle;
 
-                                        paintEventArgs.Graphics.DrawRectangle(
-                                            borderPen,
-                                            0, 0,
-                                            this.Bounds.Width - BorderThickness,
-                                            this.Bounds.Height - BorderThickness);
-                                    }
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
                                 }
                             }
                             else
@@ -327,23 +344,20 @@ namespace JTS.WindowsForms.Controls
                         {
                             if (buttonHasFocus)
                             {
-                                if (buttonHasFocus)
+                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
                                 {
-                                    using (Pen borderPen = new Pen(BorderColor, BorderThickness))
-                                    {
-                                        borderPen.DashStyle = FocusedBorderStyle;
+                                    borderPen.DashStyle = FocusedBorderStyle;
 
-                                        paintEventArgs.Graphics.DrawRectangle(
-                                            borderPen,
-                                            0, 0,
-                                            this.Bounds.Width - BorderThickness,
-                                            this.Bounds.Height - BorderThickness);
-                                    }
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
                                 }
                             }
                             else
                             {
-                                using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
                                 {
                                     borderPen.DashStyle = BorderStyle;
 
@@ -363,6 +377,9 @@ namespace JTS.WindowsForms.Controls
 
                         if (RequiresConfirmation)
                         {
+                            /* Next Line: System.StackOverflowException. Dunno why.
+                             * I think it has something to do with something unrelated. Will check back.
+                             * This is Issue #34 */
                             TextRenderer.DrawText(
                                 paintEventArgs.Graphics,
                                 this.Text, this.Font,
@@ -512,6 +529,21 @@ namespace JTS.WindowsForms.Controls
         private void Button_Leave(object sender, EventArgs e)
         {
             buttonHasFocus = false;
+            this.Refresh();
+        }
+
+        private void Button_EnabledChanged(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void Button_FontChanged(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void Button_ForeColorChanged(object sender, EventArgs e)
+        {
             this.Refresh();
         }
 
