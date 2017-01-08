@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -18,16 +19,26 @@ namespace JTS.WindowsForms.Controls
     {
         #region Designer Properties
         [Browsable(true), Category("Appearance"), Description("Gets or sets the color of each step of the progress bar.")]
-        public Color DefaultStepColor { get; set; }
+        [Obsolete("This feature is obsolete. Use IndicatorColor instead.", false)]
+        public Color StepColor { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the border color of this control.")]
         public Color BorderColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the border thickness of this control.")]
+        public int BorderThickness { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the background color of this control.")]
         public Color BackgroundColor { get; set; }
 
         [Browsable(false), Category("Appearance")]
         public override Color BackColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the border style of this control.")]
+        public DashStyle BorderStyle { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the default width of an Indicator.")]
+        public int IndicatorWidth { get; set; }
 
         [Browsable(true), Category("Behavior"), Description("Gets or sets the lower bound of the range that this Progress Bar is working with.")]
         public int Minimum { get; set; }
@@ -40,7 +51,19 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(true), Category("Behavior"), Description("Gets or sets the current value of the ProgressBar, in the raneg specified by the Minimum and Maximum properties.")]
         public int Value { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether a border should be rendered for this control.")]
+        public bool RenderBorder { get; set; }
         #endregion
+
+        protected internal enum DrawTypes
+        {
+            Background,
+            Border,
+            Indicator
+        }
+
+        protected internal static DrawTypes DrawType { get; set; }
 
         /// <summary>
         /// Initializes a new instance of this control with its default settings.
@@ -57,6 +80,8 @@ namespace JTS.WindowsForms.Controls
             SetStyle(ControlStyles.CacheText, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            this.BackColor = this.BackgroundColor != null ? this.BackgroundColor : SystemColors.ActiveBorder;
         }
 
         protected override CreateParams CreateParams
@@ -90,33 +115,33 @@ namespace JTS.WindowsForms.Controls
             }
         }
 
-        protected override void OnPaint(PaintEventArgs pe)
-        {
+        private void Draw(DrawTypes)
 
+        protected override void OnPaint(PaintEventArgs paintEventArgs)
+        {
+            if (RenderBorder)
+            {
+                if (BorderThickness >= 1)
+                {
+                    // TODO: Render the dev's border.
+                    using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                    {
+                        borderPen.DashStyle = BorderStyle;
+
+                        paintEventArgs.Graphics.DrawRectangle(
+                            borderPen,
+                            0, 0,
+                            this.Bounds.Width - BorderThickness,
+                            this.Bounds.Height - BorderThickness
+                            );
+                    }
+                }
+                else
+                {
+                    // TODO: Render a default border.
+
+                }
+            }
         }
     }
-
-    // TODO: Put this somewhere useful.
-    //namespace JTS.WindowsForms.Controls.ProgressBar
-    //{
-    //    interface Indicator
-    //    {
-    //        int Identifier { get; set; }
-    //        string Operation { get; set; }
-    //        RectangleF Rectangle { get; set; }
-    //    }
-
-    //    public class SuccessIndicator : Indicator
-    //    {
-    //        int Indicator.Identifier { get; set; }
-    //        string Indicator.Operation { get; set; }
-    //        RectangleF Indicator.Rectangle { get; set; }
-
-    //        public Color Color { get; set; }
-    //        public bool HasBorder { get; set; }
-    //        public Color BorderColor { get; set; }
-    //        public int BorderThickness { get; set; }
-    //        public bool Selectable { get; set; }
-    //    }
-    //}
 }
