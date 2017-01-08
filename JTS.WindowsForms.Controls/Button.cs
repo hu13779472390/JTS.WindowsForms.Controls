@@ -377,9 +377,6 @@ namespace JTS.WindowsForms.Controls
 
                         if (RequiresConfirmation)
                         {
-                            /* Next Line: System.StackOverflowException. Dunno why.
-                             * I think it has something to do with something unrelated. Will check back.
-                             * This is Issue #34 */
                             TextRenderer.DrawText(
                                 paintEventArgs.Graphics,
                                 this.Text, this.Font,
@@ -529,11 +526,6 @@ namespace JTS.WindowsForms.Controls
         private void Button_Leave(object sender, EventArgs e)
         {
             buttonHasFocus = false;
-            this.Refresh();
-        }
-
-        private void Button_EnabledChanged(object sender, EventArgs e)
-        {
             this.Refresh();
         }
 

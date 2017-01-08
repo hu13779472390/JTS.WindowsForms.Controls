@@ -33,7 +33,6 @@
             // Button
             // 
             this.DockChanged += new System.EventHandler(this.Button_DockChanged);
-            this.EnabledChanged += new System.EventHandler(this.Button_EnabledChanged);
             this.FontChanged += new System.EventHandler(this.Button_FontChanged);
             this.ForeColorChanged += new System.EventHandler(this.Button_ForeColorChanged);
             this.SizeChanged += new System.EventHandler(this.Button_SizeChanged);

@@ -26,20 +26,5 @@ namespace Demonstration
         {
             this.DialogResult = DialogResult.OK;
         }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            // Disable the button.
-            if (confirmationButton.Enabled)
-            {
-                confirmationButton.Enabled = false;
-                checkBox1.Checked = false;
-            }
-            else
-            {
-                confirmationButton.Enabled = true;
-                checkBox1.Checked = true;
-            }
-        }
     }
 }
