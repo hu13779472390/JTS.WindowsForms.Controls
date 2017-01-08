@@ -50,6 +50,7 @@
     <Compile Include="Button.Designer.cs">
       <DependentUpon>Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Drawing.cs" />
     <Compile Include="ErrorIndicator.cs" />
     <Compile Include="ProgressBar.cs">
       <SubType>Component</SubType>

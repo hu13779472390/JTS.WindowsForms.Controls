@@ -131,10 +131,16 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
         public Color CheckboxActiveColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of this control when it is focused (has become the active control of the Form).")]
+        public Color FocusedColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the style of the Focus border.")]
+        public DashStyle FocusedBorderStyle { get; set; }
         #endregion
 
         #region Internal Declarations
-        protected internal bool mouseButtonIsDown, mouseHasEntered, shouldFillCheckBoxArea, ticked, confirmed;
+        protected internal bool mouseButtonIsDown, mouseHasEntered, shouldFillCheckBoxArea, ticked, confirmed, buttonHasFocus;
         protected internal Color defaultBackgroundColor;
         #endregion
 
@@ -287,28 +293,66 @@ namespace JTS.WindowsForms.Controls
                     case DrawTypes.Border:
                         if (confirmed)
                         {
-                            using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
+                            if (buttonHasFocus)
                             {
-                                borderPen.DashStyle = BorderStyle;
+                                if (buttonHasFocus)
+                                {
+                                    using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                                    {
+                                        borderPen.DashStyle = FocusedBorderStyle;
 
-                                paintEventArgs.Graphics.DrawRectangle(
-                                    borderPen,
-                                    0, 0,
-                                    this.Bounds.Width - BorderThickness,
-                                    this.Bounds.Height - BorderThickness);
+                                        paintEventArgs.Graphics.DrawRectangle(
+                                            borderPen,
+                                            0, 0,
+                                            this.Bounds.Width - BorderThickness,
+                                            this.Bounds.Height - BorderThickness);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = BorderStyle;
+
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
                             }
                         }
                         else
                         {
-                            using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                            if (buttonHasFocus)
                             {
-                                borderPen.DashStyle = BorderStyle;
+                                if (buttonHasFocus)
+                                {
+                                    using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                                    {
+                                        borderPen.DashStyle = FocusedBorderStyle;
 
-                                paintEventArgs.Graphics.DrawRectangle(
-                                    borderPen,
-                                    0, 0,
-                                    this.Bounds.Width - BorderThickness,
-                                    this.Bounds.Height - BorderThickness);
+                                        paintEventArgs.Graphics.DrawRectangle(
+                                            borderPen,
+                                            0, 0,
+                                            this.Bounds.Width - BorderThickness,
+                                            this.Bounds.Height - BorderThickness);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = BorderStyle;
+
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
                             }
                         }
                         break;
@@ -463,6 +507,20 @@ namespace JTS.WindowsForms.Controls
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 
             this.SetStyle(ControlStyles.Selectable, true);
+        }
+
+        private void Button_Leave(object sender, EventArgs e)
+        {
+            buttonHasFocus = false;
+            this.Refresh();
+        }
+
+        private void Button_Enter(object sender, EventArgs e)
+        {
+            /* I think this is where we draw a custom rectangle around a 
+            * control that has just received focus. */
+            buttonHasFocus = true;
+            this.Refresh();
         }
         #endregion
 

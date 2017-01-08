@@ -32,7 +32,6 @@
             this.controlSelectionComboBox = new System.Windows.Forms.ComboBox();
             this.launchSelectedDemonstrationButton = new System.Windows.Forms.Button();
             this.confirmationText = new System.Windows.Forms.Label();
-            this.progressBar1 = new JTS.WindowsForms.Controls.ProgressBar();
             this.SuspendLayout();
             // 
             // instructionText
@@ -84,31 +83,11 @@
             this.confirmationText.Text = "Canceled.";
             this.confirmationText.Visible = false;
             // 
-            // progressBar1
-            // 
-            this.progressBar1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.progressBar1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.progressBar1.BorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            this.progressBar1.BorderThickness = 1;
-            this.progressBar1.IndicatorWidth = 0;
-            this.progressBar1.Location = new System.Drawing.Point(82, 136);
-            this.progressBar1.Maximum = 0;
-            this.progressBar1.Minimum = 0;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.RenderBorder = true;
-            this.progressBar1.Size = new System.Drawing.Size(260, 26);
-            this.progressBar1.Step = 0;
-            this.progressBar1.StepColor = System.Drawing.Color.Empty;
-            this.progressBar1.TabIndex = 5;
-            this.progressBar1.Text = "progressBar1";
-            this.progressBar1.Value = 0;
-            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 231);
-            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.confirmationText);
             this.Controls.Add(this.launchSelectedDemonstrationButton);
             this.Controls.Add(this.controlSelectionComboBox);
@@ -128,7 +107,6 @@
         private System.Windows.Forms.ComboBox controlSelectionComboBox;
         private System.Windows.Forms.Button launchSelectedDemonstrationButton;
         private System.Windows.Forms.Label confirmationText;
-        private JTS.WindowsForms.Controls.ProgressBar progressBar1;
     }
 }
 
