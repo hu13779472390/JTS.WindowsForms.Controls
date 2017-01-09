@@ -170,10 +170,7 @@ namespace JTS.WindowsForms.Controls
 
         public void PerformClick()
         {
-            if (Clicked != null)
-            {
-                Clicked(this, new ButtonClickedEventArgs(null));
-            }
+                Clicked?.Invoke(this, new ButtonClickedEventArgs(null));
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -224,20 +221,14 @@ namespace JTS.WindowsForms.Controls
                         if (ticked)
                         {
                             ticked = false;
-
-                            if (CheckedChanged != null)
-                            {
-                                CheckedChanged(this, new ButtonCheckedChangedEventArgs(this, false));
-                            }
+                                CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs(this, false));
+                            
                         }
                         else
                         {
                             ticked = true;
-
-                            if (CheckedChanged != null)
-                            {
-                                CheckedChanged(this, new ButtonCheckedChangedEventArgs((Button)this, true));
-                            }
+                            
+                                CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs((Button)this, true));
                         }
                     }
                     else if (e.Location.X > SeparatorDistance)
@@ -248,16 +239,14 @@ namespace JTS.WindowsForms.Controls
                             this.BackColor = ConfirmedBackgroundColor;
                             confirmed = true;
 
-                            if (Confirmed != null)
-                                Confirmed(this, new ButtonConfirmedEventArgs(e));
+                            
+                                Confirmed?.Invoke(this, new ButtonConfirmedEventArgs(e));
 
 
                         }
-
-                        if (Clicked != null)
-                        {
-                            Clicked(this, new ButtonClickedEventArgs(e));
-                        }
+                        
+                            Clicked?.Invoke(this, new ButtonClickedEventArgs(e));
+                        
                     }
                 }
             }
