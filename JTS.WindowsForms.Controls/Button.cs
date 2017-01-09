@@ -136,7 +136,7 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
         public bool UsingTexturedBackground { get; set; }
 
-        [Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
+        //[Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
         [Browsable(true), Category("Behavior"), Description("")]
         public bool StyleButtonSeparately { get; set; }
 
@@ -295,7 +295,7 @@ namespace JTS.WindowsForms.Controls
             if (paintEventArgs != null)
             {
                 // If the control is currently Disabled...
-                Color borderColor, backgroundColor;
+                Color borderColor;
 
                 if (!this.Enabled)
                 {
@@ -459,15 +459,37 @@ namespace JTS.WindowsForms.Controls
                                 );
                         break;
                     case DrawTypes.CheckBoxFiller:
-                        if (shouldFillCheckBoxArea)
+                        Color color;
+                        if (StyleButtonSeparately)
                         {
-                            using (SolidBrush brush = new SolidBrush(ActiveColor))
+                            if (mouseHasEntered)
+                                color = CheckboxHighlightColor;
+                            else if (mouseButtonIsDown)
+                                color = CheckboxActiveColor;
+                            else
+                                color = CheckboxBackgroundColor;
+
+                            using (SolidBrush brush = new SolidBrush(color))
                             {
                                 paintEventArgs.Graphics.FillRectangle(
                                     brush, 
                                     0, 
                                     0, 
                                     SeparatorDistance, 
+                                    (this.Bounds.Height - 1)
+                                    );
+                            }
+                        }
+
+                        if (shouldFillCheckBoxArea)
+                        {
+                            using (SolidBrush brush = new SolidBrush(ActiveColor))
+                            {
+                                paintEventArgs.Graphics.FillRectangle(
+                                    brush,
+                                    0,
+                                    0,
+                                    SeparatorDistance,
                                     this.Bounds.Height
                                     );
                             }
@@ -672,6 +694,9 @@ namespace JTS.WindowsForms.Controls
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
                     Draw(paintEventArgs, DrawTypes.Border);
+
+                    // Issue #26.
+                    Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                     Draw(paintEventArgs, DrawTypes.Checkmark);
                     Draw(paintEventArgs, DrawTypes.Separator);
                     Draw(paintEventArgs, DrawTypes.Text);
@@ -684,6 +709,9 @@ namespace JTS.WindowsForms.Controls
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
                     Draw(paintEventArgs, DrawTypes.Border);
+
+                    // Issue #26.
+                    Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                     Draw(paintEventArgs, DrawTypes.Separator);
                     Draw(paintEventArgs, DrawTypes.Text);
                 }
@@ -692,6 +720,9 @@ namespace JTS.WindowsForms.Controls
             {
                 Draw(paintEventArgs, DrawTypes.TexturedBackground);
                 Draw(paintEventArgs, DrawTypes.Border);
+
+                // Issue #26.
+                Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                 Draw(paintEventArgs, DrawTypes.Text);
             }
         }
