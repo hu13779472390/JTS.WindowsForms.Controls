@@ -436,16 +436,40 @@ namespace JTS.WindowsForms.Controls
                         break;
                     case DrawTypes.Separator:
                         if (confirmed)
-                            paintEventArgs.Graphics.DrawLine(new Pen(ConfirmedBorderColor, BorderThickness), SeparatorDistance, 0, SeparatorDistance, this.Bounds.Height);
+                            paintEventArgs.Graphics.DrawLine(
+                                new Pen(
+                                    ConfirmedBorderColor, 
+                                    BorderThickness
+                                    ), 
+                                SeparatorDistance, 
+                                0, 
+                                SeparatorDistance, 
+                                this.Bounds.Height
+                                );
                         else
-                            paintEventArgs.Graphics.DrawLine(new Pen(BorderColor, BorderThickness), SeparatorDistance, 0, SeparatorDistance, this.Bounds.Height);
+                            paintEventArgs.Graphics.DrawLine(
+                                new Pen(
+                                    BorderColor, 
+                                    BorderThickness
+                                    ), 
+                                SeparatorDistance, 
+                                0, 
+                                SeparatorDistance, 
+                                this.Bounds.Height
+                                );
                         break;
                     case DrawTypes.CheckBoxFiller:
                         if (shouldFillCheckBoxArea)
                         {
                             using (SolidBrush brush = new SolidBrush(ActiveColor))
                             {
-                                paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                paintEventArgs.Graphics.FillRectangle(
+                                    brush, 
+                                    0, 
+                                    0, 
+                                    SeparatorDistance, 
+                                    this.Bounds.Height
+                                    );
                             }
 
                             shouldFillCheckBoxArea = false;
@@ -457,16 +481,62 @@ namespace JTS.WindowsForms.Controls
                             // Create a mapping of all image layout types to functions that generate rectangles for that type
                             Dictionary<ImageLayout, Func<Rectangle>> LayoutMap = new Dictionary<ImageLayout, Func<Rectangle>>()
                             {
-                                { ImageLayout.None,     () => new Rectangle(new Point((int)BorderThickness, (int)BorderThickness), new Size(BackgroundTexture.Width, BackgroundTexture.Height)) },
-                                { ImageLayout.Stretch,  () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
-                                { ImageLayout.Tile,     () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
-                                { ImageLayout.Zoom,     () => { throw new NotImplementedException("Zoom is not yet supported for the confirmation button."); } },
-                                { ImageLayout.Center,   () =>
+                                {
+                                    ImageLayout.None,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness, 
+                                            (int)BorderThickness), 
+                                        new Size(
+                                            BackgroundTexture.Width, 
+                                            BackgroundTexture.Height
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Stretch,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
+                                        new Size(
+                                            (Width - (int)BorderThickness),
+                                            (Height - (int)BorderThickness)
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Tile,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
+                                        new Size(
+                                            (Width - (int)BorderThickness),
+                                            (Height - (int)BorderThickness)
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Zoom,
+                                    () => 
+                                    {
+                                        throw new NotImplementedException("Zoom is not yet supported for the confirmation button.");
+                                    }
+                                },
+                                {
+                                    ImageLayout.Center,
+                                    () =>
                                     {
                                         int xLocation = (Width / 2) - (BackgroundTexture.Width / 2) - ((int)BorderThickness * 2);
                                         int yLocation = (Height / 2) - (BackgroundTexture.Height / 2) - ((int)BorderThickness * 2);
 
-                                        return new Rectangle(new Point(xLocation, yLocation), new Size(BackgroundTexture.Width, BackgroundTexture.Height));
+                                        return new Rectangle(
+                                            new Point(xLocation, yLocation), 
+                                            new Size(
+                                                BackgroundTexture.Width, 
+                                                BackgroundTexture.Height)
+                                                );
                                     }
                                 }
                             };
