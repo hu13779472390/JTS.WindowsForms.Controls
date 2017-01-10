@@ -88,10 +88,10 @@ namespace JTS.WindowsForms.Controls
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the type of Layout to use for this Texture.")]
         public ImageLayout BackgroundTextureLayout { get; set; }
-        
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
-        
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color ConfirmedCheckmarkColor { get; set; }
 
@@ -170,7 +170,7 @@ namespace JTS.WindowsForms.Controls
 
         public void PerformClick()
         {
-                Clicked?.Invoke(this, new ButtonClickedEventArgs(null));
+            Clicked?.Invoke(this, new ButtonClickedEventArgs(null));
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -221,14 +221,14 @@ namespace JTS.WindowsForms.Controls
                         if (ticked)
                         {
                             ticked = false;
-                                CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs(this, false));
-                            
+                            CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs(this, false));
+
                         }
                         else
                         {
                             ticked = true;
-                            
-                                CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs((Button)this, true));
+
+                            CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs((Button)this, true));
                         }
                     }
                     else if (e.Location.X > SeparatorDistance)
@@ -239,14 +239,14 @@ namespace JTS.WindowsForms.Controls
                             this.BackColor = ConfirmedBackgroundColor;
                             confirmed = true;
 
-                            
-                                Confirmed?.Invoke(this, new ButtonConfirmedEventArgs(e));
+
+                            Confirmed?.Invoke(this, new ButtonConfirmedEventArgs(e));
 
 
                         }
-                        
-                            Clicked?.Invoke(this, new ButtonClickedEventArgs(e));
-                        
+
+                        Clicked?.Invoke(this, new ButtonClickedEventArgs(e));
+
                     }
                 }
             }
@@ -427,23 +427,23 @@ namespace JTS.WindowsForms.Controls
                         if (confirmed)
                             paintEventArgs.Graphics.DrawLine(
                                 new Pen(
-                                    ConfirmedBorderColor, 
+                                    ConfirmedBorderColor,
                                     BorderThickness
-                                    ), 
-                                SeparatorDistance, 
-                                0, 
-                                SeparatorDistance, 
+                                    ),
+                                SeparatorDistance,
+                                0,
+                                SeparatorDistance,
                                 this.Bounds.Height
                                 );
                         else
                             paintEventArgs.Graphics.DrawLine(
                                 new Pen(
-                                    BorderColor, 
+                                    BorderColor,
                                     BorderThickness
-                                    ), 
-                                SeparatorDistance, 
-                                0, 
-                                SeparatorDistance, 
+                                    ),
+                                SeparatorDistance,
+                                0,
+                                SeparatorDistance,
                                 this.Bounds.Height
                                 );
                         break;
@@ -461,10 +461,10 @@ namespace JTS.WindowsForms.Controls
                             using (SolidBrush brush = new SolidBrush(color))
                             {
                                 paintEventArgs.Graphics.FillRectangle(
-                                    brush, 
-                                    0, 
-                                    0, 
-                                    SeparatorDistance, 
+                                    brush,
+                                    0,
+                                    0,
+                                    SeparatorDistance,
                                     (this.Bounds.Height - 1)
                                     );
                             }
@@ -496,10 +496,10 @@ namespace JTS.WindowsForms.Controls
                                     ImageLayout.None,
                                     () => new Rectangle(
                                         new Point(
-                                            (int)BorderThickness, 
-                                            (int)BorderThickness), 
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
                                         new Size(
-                                            BackgroundTexture.Width, 
+                                            BackgroundTexture.Width,
                                             BackgroundTexture.Height
                                             )
                                             )
@@ -530,7 +530,7 @@ namespace JTS.WindowsForms.Controls
                                 },
                                 {
                                     ImageLayout.Zoom,
-                                    () => 
+                                    () =>
                                     {
                                         throw new NotImplementedException("Zoom is not yet supported for the confirmation button.");
                                     }
@@ -543,9 +543,9 @@ namespace JTS.WindowsForms.Controls
                                         int yLocation = (Height / 2) - (BackgroundTexture.Height / 2) - ((int)BorderThickness * 2);
 
                                         return new Rectangle(
-                                            new Point(xLocation, yLocation), 
+                                            new Point(xLocation, yLocation),
                                             new Size(
-                                                BackgroundTexture.Width, 
+                                                BackgroundTexture.Width,
                                                 BackgroundTexture.Height)
                                                 );
                                     }
@@ -589,7 +589,7 @@ namespace JTS.WindowsForms.Controls
 
             this.Refresh();
         }
-        
+
         private void SetStyles()
         {
             // Caching the text will give us ~1.5% performance boost.
