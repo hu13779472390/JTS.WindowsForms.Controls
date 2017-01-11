@@ -2,7 +2,7 @@ JTS.WindowsForms.Controls is a new Control Suite for Windows Forms applications 
 
 ---
 
-Currently, this control suite is comprised of, but will not be limited to, a:
+Currently, this control suite comprises, but will not be limited to, a:
 
 - Confirmation Button;
 - Switch Control, and a;
