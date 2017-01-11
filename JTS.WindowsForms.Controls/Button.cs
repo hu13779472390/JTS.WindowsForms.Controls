@@ -83,30 +83,29 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Appearance"), Description("Gets or sets the default border thickness for this control.")]
         public float BorderThickness { get; set; }
 
-        [Browsable(true), Category("Behavior"), Description("Indicates whether this control requires confirmation.")]
-        public bool RequiresConfirmation { get; set; }
-
-        [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
-        public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
-
-        [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
-        public bool UsingTexturedBackground { get; set; }
-
         [Browsable(true), Category("Appearance"), Description("Gets or sets the background texture for this control.")]
         public Image BackgroundTexture { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the type of Layout to use for this Texture.")]
         public ImageLayout BackgroundTextureLayout { get; set; }
-        
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
-        
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the background color of this control's checkbox area when it is disabled.")]
+        public Color DisabledCheckBoxBackgroundColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of this control's Separator when it is disabled.")]
+        public Color DisabledSeparatorColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of the check-mark when this control is disabled.")]
+        public Color DisabledCheckmarkColor { get; set; }
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color ConfirmedCheckmarkColor { get; set; }
 
-        [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
-        // The recommended - and minimum - default distance, is 27 pixels.
-        public int SeparatorDistance { get; set; }
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the ConfirmedCheckBoxBackgroundColor for this control.")]
+        public Color ConfirmedCheckBoxBackgroundColor { get; set; }
 
         [Browsable(true), Category("Appearance"), Description("Gets or sets the Border Thickness of the Check-mark.")]
         public float CheckmarkThickness { get; set; }
@@ -118,11 +117,53 @@ namespace JTS.WindowsForms.Controls
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never), Category("Appearance")]
         [Obsolete("In order to use this feature, cast it (not recommended).")]
         public new Image BackgroundImageLayout { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance")]
+        public Color CheckboxBackgroundColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxHighlightColor { get; set; }
+
+        [Browsable(true), EditorBrowsable(EditorBrowsableState.Advanced), Category("Appearance"), Description("")]
+        public Color CheckboxActiveColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of this control when it is focused (has become the active control of the Form).")]
+        public Color FocusedColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the style of the Focus border.")]
+        public DashStyle FocusedBorderStyle { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the background color of the control when it is disabled.")]
+        public Color DisabledBackgroundColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the border color of the control when it is disabled.")]
+        public Color DisabledBorderColor { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Indicates whether this control requires confirmation.")]
+        public bool RequiresConfirmation { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether to Synchronize the Check-mark Color with Border settings.")]
+        public bool SynchronizeCheckMarkWithBorderSettings { get; set; }
+
+        [Browsable(true), Category("Behavior"), Description("Gets or sets whether this control should have a textured background.")]
+        public bool UsingTexturedBackground { get; set; }
+
+        //[Obsolete("This feature is now obsolete. A replacement is on its way.", false)]
+        [Browsable(true), Category("Behavior"), Description("")]
+        public bool StyleButtonSeparately { get; set; }
+
+        [Browsable(true), Category("Separator"), Description("Gets or sets the distance for the separator, in pixels, from the left edge of this control.")]
+        // The recommended - and minimum - default distance, is 27 pixels.
+        public int SeparatorDistance { get; set; }
         #endregion
 
         #region Internal Declarations
-        protected internal bool mouseButtonIsDown, mouseHasEntered, shouldFillCheckBoxArea, ticked, confirmed;
+        protected internal bool mouseButtonIsDown, mouseHasEntered, shouldFillCheckBoxArea, ticked, confirmed, buttonHasFocus;
         protected internal Color defaultBackgroundColor;
+        protected internal Color checkMarkColor;
+        protected internal Color checkBoxColor;
+        protected internal Color backgroundColor;
+        protected internal Color separatorColor;
         #endregion
 
         #region Internal Enumerations
@@ -141,14 +182,27 @@ namespace JTS.WindowsForms.Controls
 
         #endregion
 
+        public new bool Enabled
+        {
+            get
+            {
+                return base.Enabled;
+            }
+
+            set
+            {
+                base.Enabled = value;
+                this.BackColor = DisabledBackgroundColor;
+
+                this.Refresh();
+            }
+        }
+
         #region Methods
 
         public void PerformClick()
         {
-            if (Clicked != null)
-            {
-                Clicked(this, new ButtonClickedEventArgs(null));
-            }
+            Clicked?.Invoke(this, new ButtonClickedEventArgs(null));
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -199,20 +253,14 @@ namespace JTS.WindowsForms.Controls
                         if (ticked)
                         {
                             ticked = false;
+                            CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs(this, false));
 
-                            if (CheckedChanged != null)
-                            {
-                                CheckedChanged(this, new ButtonCheckedChangedEventArgs(this, false));
-                            }
                         }
                         else
                         {
                             ticked = true;
 
-                            if (CheckedChanged != null)
-                            {
-                                CheckedChanged(this, new ButtonCheckedChangedEventArgs((Button)this, true));
-                            }
+                            CheckedChanged?.Invoke(this, new ButtonCheckedChangedEventArgs((Button)this, true));
                         }
                     }
                     else if (e.Location.X > SeparatorDistance)
@@ -223,16 +271,10 @@ namespace JTS.WindowsForms.Controls
                             this.BackColor = ConfirmedBackgroundColor;
                             confirmed = true;
 
-                            if (Confirmed != null)
-                                Confirmed(this, new ButtonConfirmedEventArgs(e));
-
-
+                            Confirmed?.Invoke(this, new ButtonConfirmedEventArgs(e));
                         }
 
-                        if (Clicked != null)
-                        {
-                            Clicked(this, new ButtonClickedEventArgs(e));
-                        }
+                        Clicked?.Invoke(this, new ButtonClickedEventArgs(e));
                     }
                 }
             }
@@ -269,33 +311,83 @@ namespace JTS.WindowsForms.Controls
 
             if (paintEventArgs != null)
             {
+                // If the control is currently Disabled...
+                Color borderColor;
+
+                if (!this.Enabled)
+                {
+                    // Let the user know
+                    borderColor = DisabledBorderColor;
+                    checkMarkColor = DisabledCheckmarkColor;
+                    checkBoxColor = DisabledCheckBoxBackgroundColor;
+                    backgroundColor = DisabledBackgroundColor;
+                    //separatorColor = DisabledSeparatorColor;
+                }
+                else
+                {
+                    // either way...
+                    borderColor = BorderColor;
+                }
+
                 switch (drawType)
                 {
                     case DrawTypes.Border:
                         if (confirmed)
                         {
-                            using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
+                            if (buttonHasFocus)
                             {
-                                borderPen.DashStyle = BorderStyle;
+                                using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = FocusedBorderStyle;
 
-                                paintEventArgs.Graphics.DrawRectangle(
-                                    borderPen,
-                                    0, 0,
-                                    this.Bounds.Width - BorderThickness,
-                                    this.Bounds.Height - BorderThickness);
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
+                            }
+                            else
+                            {
+                                using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = BorderStyle;
+
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
                             }
                         }
                         else
                         {
-                            using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                            if (buttonHasFocus)
                             {
-                                borderPen.DashStyle = BorderStyle;
+                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = FocusedBorderStyle;
 
-                                paintEventArgs.Graphics.DrawRectangle(
-                                    borderPen,
-                                    0, 0,
-                                    this.Bounds.Width - BorderThickness,
-                                    this.Bounds.Height - BorderThickness);
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
+                            }
+                            else
+                            {
+                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
+                                {
+                                    borderPen.DashStyle = BorderStyle;
+
+                                    paintEventArgs.Graphics.DrawRectangle(
+                                        borderPen,
+                                        0, 0,
+                                        this.Bounds.Width - BorderThickness,
+                                        this.Bounds.Height - BorderThickness);
+                                }
                             }
                         }
                         break;
@@ -347,6 +439,11 @@ namespace JTS.WindowsForms.Controls
                             thickness = CheckmarkThickness;
                         }
 
+                        if(!this.Enabled)
+                        {
+                            checkmarkColor = DisabledCheckmarkColor;
+                        }
+
                         paintEventArgs.Graphics.DrawLine(
                             new Pen(
                                 checkmarkColor,
@@ -365,19 +462,90 @@ namespace JTS.WindowsForms.Controls
                         break;
                     case DrawTypes.Separator:
                         if (confirmed)
-                            paintEventArgs.Graphics.DrawLine(new Pen(ConfirmedBorderColor, BorderThickness), SeparatorDistance, 0, SeparatorDistance, this.Bounds.Height);
+                            paintEventArgs.Graphics.DrawLine(
+                                new Pen(
+                                    ConfirmedBorderColor,
+                                    BorderThickness
+                                    ),
+                                SeparatorDistance,
+                                0,
+                                SeparatorDistance,
+                                this.Bounds.Height
+                                );
                         else
-                            paintEventArgs.Graphics.DrawLine(new Pen(BorderColor, BorderThickness), SeparatorDistance, 0, SeparatorDistance, this.Bounds.Height);
+                        {
+                            separatorColor = this.Enabled ? BorderColor : DisabledSeparatorColor;
+                            paintEventArgs.Graphics.DrawLine(
+                                new Pen(
+                                    separatorColor,
+                                    BorderThickness
+                                    ),
+                                SeparatorDistance,
+                                0,
+                                SeparatorDistance,
+                                this.Bounds.Height
+                                );
+                        }
                         break;
                     case DrawTypes.CheckBoxFiller:
+                        Color color;
+                        if (StyleButtonSeparately)
+                        {
+                            if (mouseHasEntered)
+                                color = CheckboxHighlightColor;
+                            else if (mouseButtonIsDown)
+                                color = CheckboxActiveColor;
+                            else
+                                color = CheckboxBackgroundColor;
+
+                            if (!this.Enabled && !confirmed)
+                                color = DisabledCheckBoxBackgroundColor;
+
+                            using (SolidBrush brush = new SolidBrush(color))
+                            {
+                                paintEventArgs.Graphics.FillRectangle(
+                                    brush,
+                                    0,
+                                    0,
+                                    SeparatorDistance,
+                                    (this.Bounds.Height - 1)
+                                    );
+                            }
+                        }
+
                         if (shouldFillCheckBoxArea)
                         {
-                            using (SolidBrush brush = new SolidBrush(ActiveColor))
+                            color = this.Enabled ? ActiveColor : DisabledCheckBoxBackgroundColor;
+
+                            using (SolidBrush brush = new SolidBrush(color))
                             {
-                                paintEventArgs.Graphics.FillRectangle(brush, 0, 0, SeparatorDistance, this.Bounds.Height);
+                                paintEventArgs.Graphics.FillRectangle(
+                                    brush,
+                                    0,
+                                    0,
+                                    SeparatorDistance,
+                                    this.Bounds.Height
+                                    );
                             }
 
                             shouldFillCheckBoxArea = false;
+                        }
+
+                        if(RequiresConfirmation && confirmed)
+                        {
+                            if(!ConfirmedCheckBoxBackgroundColor.IsEmpty)
+                            {
+                                using (SolidBrush brush = new SolidBrush(ConfirmedCheckBoxBackgroundColor))
+                                {
+                                    paintEventArgs.Graphics.FillRectangle(
+                                        brush,
+                                        0,
+                                        0,
+                                        SeparatorDistance,
+                                        this.Bounds.Height
+                                        );
+                                }
+                            }
                         }
                         break;
                     case DrawTypes.TexturedBackground:
@@ -386,16 +554,62 @@ namespace JTS.WindowsForms.Controls
                             // Create a mapping of all image layout types to functions that generate rectangles for that type
                             Dictionary<ImageLayout, Func<Rectangle>> LayoutMap = new Dictionary<ImageLayout, Func<Rectangle>>()
                             {
-                                { ImageLayout.None,     () => new Rectangle(new Point((int)BorderThickness, (int)BorderThickness), new Size(BackgroundTexture.Width, BackgroundTexture.Height)) },
-                                { ImageLayout.Stretch,  () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
-                                { ImageLayout.Tile,     () => new Rectangle(new Point((int)BorderThickness,(int)BorderThickness),new Size((Width - (int)BorderThickness),(Height - (int)BorderThickness))) },
-                                { ImageLayout.Zoom,     () => { throw new NotImplementedException("Zoom is not yet supported for the confirmation button."); } },
-                                { ImageLayout.Center,   () =>
+                                {
+                                    ImageLayout.None,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
+                                        new Size(
+                                            BackgroundTexture.Width,
+                                            BackgroundTexture.Height
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Stretch,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
+                                        new Size(
+                                            (Width - (int)BorderThickness),
+                                            (Height - (int)BorderThickness)
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Tile,
+                                    () => new Rectangle(
+                                        new Point(
+                                            (int)BorderThickness,
+                                            (int)BorderThickness),
+                                        new Size(
+                                            (Width - (int)BorderThickness),
+                                            (Height - (int)BorderThickness)
+                                            )
+                                            )
+                                },
+                                {
+                                    ImageLayout.Zoom,
+                                    () =>
+                                    {
+                                        throw new NotImplementedException("Zoom is not yet supported for the confirmation button.");
+                                    }
+                                },
+                                {
+                                    ImageLayout.Center,
+                                    () =>
                                     {
                                         int xLocation = (Width / 2) - (BackgroundTexture.Width / 2) - ((int)BorderThickness * 2);
                                         int yLocation = (Height / 2) - (BackgroundTexture.Height / 2) - ((int)BorderThickness * 2);
 
-                                        return new Rectangle(new Point(xLocation, yLocation), new Size(BackgroundTexture.Width, BackgroundTexture.Height));
+                                        return new Rectangle(
+                                            new Point(xLocation, yLocation),
+                                            new Size(
+                                                BackgroundTexture.Width,
+                                                BackgroundTexture.Height)
+                                                );
                                     }
                                 }
                             };
@@ -437,7 +651,7 @@ namespace JTS.WindowsForms.Controls
 
             this.Refresh();
         }
-        
+
         private void SetStyles()
         {
             // Caching the text will give us ~1.5% performance boost.
@@ -448,6 +662,32 @@ namespace JTS.WindowsForms.Controls
 
             // Helps to prevent flickering when the control (or a part of it) is redrawn.
             this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+            this.SetStyle(ControlStyles.Selectable, true);
+        }
+
+        private void Button_Leave(object sender, EventArgs e)
+        {
+            buttonHasFocus = false;
+            this.Refresh();
+        }
+
+        private void Button_FontChanged(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void Button_ForeColorChanged(object sender, EventArgs e)
+        {
+            this.Refresh();
+        }
+
+        private void Button_Enter(object sender, EventArgs e)
+        {
+            /* I think this is where we draw a custom rectangle around a 
+            * control that has just received focus. */
+            buttonHasFocus = true;
+            this.Refresh();
         }
         #endregion
 
@@ -474,6 +714,10 @@ namespace JTS.WindowsForms.Controls
             }
         }
 
+        #region Constructor
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public Button()
         {
             this.DoubleBuffered = true;
@@ -484,6 +728,7 @@ namespace JTS.WindowsForms.Controls
 
             defaultBackgroundColor = this.BackColor;
         }
+        #endregion
 
         protected override void OnPaint(PaintEventArgs paintEventArgs)
         {
@@ -500,6 +745,9 @@ namespace JTS.WindowsForms.Controls
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
                     Draw(paintEventArgs, DrawTypes.Border);
+
+                    // Issue #26.
+                    Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                     Draw(paintEventArgs, DrawTypes.Checkmark);
                     Draw(paintEventArgs, DrawTypes.Separator);
                     Draw(paintEventArgs, DrawTypes.Text);
@@ -512,6 +760,9 @@ namespace JTS.WindowsForms.Controls
                         Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
 
                     Draw(paintEventArgs, DrawTypes.Border);
+
+                    // Issue #26.
+                    Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                     Draw(paintEventArgs, DrawTypes.Separator);
                     Draw(paintEventArgs, DrawTypes.Text);
                 }
@@ -519,8 +770,10 @@ namespace JTS.WindowsForms.Controls
             else
             {
                 Draw(paintEventArgs, DrawTypes.TexturedBackground);
-
                 Draw(paintEventArgs, DrawTypes.Border);
+
+                // Issue #26.
+                Draw(paintEventArgs, DrawTypes.CheckBoxFiller);
                 Draw(paintEventArgs, DrawTypes.Text);
             }
         }

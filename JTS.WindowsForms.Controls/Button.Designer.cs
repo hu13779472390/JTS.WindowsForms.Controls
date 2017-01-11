@@ -33,7 +33,11 @@
             // Button
             // 
             this.DockChanged += new System.EventHandler(this.Button_DockChanged);
+            this.FontChanged += new System.EventHandler(this.Button_FontChanged);
+            this.ForeColorChanged += new System.EventHandler(this.Button_ForeColorChanged);
             this.SizeChanged += new System.EventHandler(this.Button_SizeChanged);
+            this.Enter += new System.EventHandler(this.Button_Enter);
+            this.Leave += new System.EventHandler(this.Button_Leave);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Button_MouseDown);
             this.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
