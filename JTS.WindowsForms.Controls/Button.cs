@@ -104,6 +104,9 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color ConfirmedCheckmarkColor { get; set; }
 
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the ConfirmedCheckBoxBackgroundColor for this control.")]
+        public Color ConfirmedCheckBoxBackgroundColor { get; set; }
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the Border Thickness of the Check-mark.")]
         public float CheckmarkThickness { get; set; }
 
@@ -333,7 +336,7 @@ namespace JTS.WindowsForms.Controls
                         {
                             if (buttonHasFocus)
                             {
-                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
+                                using (Pen borderPen = new Pen(ConfirmedBorderColor, BorderThickness))
                                 {
                                     borderPen.DashStyle = FocusedBorderStyle;
 
@@ -526,6 +529,23 @@ namespace JTS.WindowsForms.Controls
                             }
 
                             shouldFillCheckBoxArea = false;
+                        }
+
+                        if(RequiresConfirmation && confirmed)
+                        {
+                            if(!ConfirmedCheckBoxBackgroundColor.IsEmpty)
+                            {
+                                using (SolidBrush brush = new SolidBrush(ConfirmedCheckBoxBackgroundColor))
+                                {
+                                    paintEventArgs.Graphics.FillRectangle(
+                                        brush,
+                                        0,
+                                        0,
+                                        SeparatorDistance,
+                                        this.Bounds.Height
+                                        );
+                                }
+                            }
                         }
                         break;
                     case DrawTypes.TexturedBackground:
