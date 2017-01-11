@@ -24,7 +24,19 @@ namespace Demonstration
 
         private void confirmationButton_Confirmed(object sender, JTS.WindowsForms.Controls.Button.ButtonConfirmedEventArgs e)
         {
-            this.DialogResult = DialogResult.OK;
+            //this.DialogResult = DialogResult.OK;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (confirmationButton.Enabled)
+            {
+                confirmationButton.Enabled = false;
+            }
+            else
+            {
+                confirmationButton.Enabled = true;
+            }
         }
     }
 }

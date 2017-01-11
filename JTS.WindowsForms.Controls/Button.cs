@@ -92,6 +92,15 @@ namespace JTS.WindowsForms.Controls
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color CheckmarkColor { get; set; }
 
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the background color of this control's checkbox area when it is disabled.")]
+        public Color DisabledCheckBoxBackgroundColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of this control's Separator when it is disabled.")]
+        public Color DisabledSeparatorColor { get; set; }
+
+        [Browsable(true), Category("Appearance"), Description("Gets or sets the color of the check-mark when this control is disabled.")]
+        public Color DisabledCheckmarkColor { get; set; }
+
         [Browsable(true), Category("Appearance"), Description("Gets or sets the checkmark color for this control.")]
         public Color ConfirmedCheckmarkColor { get; set; }
 
@@ -148,6 +157,10 @@ namespace JTS.WindowsForms.Controls
         #region Internal Declarations
         protected internal bool mouseButtonIsDown, mouseHasEntered, shouldFillCheckBoxArea, ticked, confirmed, buttonHasFocus;
         protected internal Color defaultBackgroundColor;
+        protected internal Color checkMarkColor;
+        protected internal Color checkBoxColor;
+        protected internal Color backgroundColor;
+        protected internal Color separatorColor;
         #endregion
 
         #region Internal Enumerations
@@ -165,6 +178,22 @@ namespace JTS.WindowsForms.Controls
         protected internal static DrawTypes DrawType { get; set; }
 
         #endregion
+
+        public new bool Enabled
+        {
+            get
+            {
+                return base.Enabled;
+            }
+
+            set
+            {
+                base.Enabled = value;
+                this.BackColor = DisabledBackgroundColor;
+
+                this.Refresh();
+            }
+        }
 
         #region Methods
 
@@ -239,14 +268,10 @@ namespace JTS.WindowsForms.Controls
                             this.BackColor = ConfirmedBackgroundColor;
                             confirmed = true;
 
-
                             Confirmed?.Invoke(this, new ButtonConfirmedEventArgs(e));
-
-
                         }
 
                         Clicked?.Invoke(this, new ButtonClickedEventArgs(e));
-
                     }
                 }
             }
@@ -290,6 +315,10 @@ namespace JTS.WindowsForms.Controls
                 {
                     // Let the user know
                     borderColor = DisabledBorderColor;
+                    checkMarkColor = DisabledCheckmarkColor;
+                    checkBoxColor = DisabledCheckBoxBackgroundColor;
+                    backgroundColor = DisabledBackgroundColor;
+                    //separatorColor = DisabledSeparatorColor;
                 }
                 else
                 {
@@ -304,7 +333,7 @@ namespace JTS.WindowsForms.Controls
                         {
                             if (buttonHasFocus)
                             {
-                                using (Pen borderPen = new Pen(BorderColor, BorderThickness))
+                                using (Pen borderPen = new Pen(borderColor, BorderThickness))
                                 {
                                     borderPen.DashStyle = FocusedBorderStyle;
 
@@ -407,6 +436,11 @@ namespace JTS.WindowsForms.Controls
                             thickness = CheckmarkThickness;
                         }
 
+                        if(!this.Enabled)
+                        {
+                            checkmarkColor = DisabledCheckmarkColor;
+                        }
+
                         paintEventArgs.Graphics.DrawLine(
                             new Pen(
                                 checkmarkColor,
@@ -436,9 +470,11 @@ namespace JTS.WindowsForms.Controls
                                 this.Bounds.Height
                                 );
                         else
+                        {
+                            separatorColor = this.Enabled ? BorderColor : DisabledSeparatorColor;
                             paintEventArgs.Graphics.DrawLine(
                                 new Pen(
-                                    BorderColor,
+                                    separatorColor,
                                     BorderThickness
                                     ),
                                 SeparatorDistance,
@@ -446,6 +482,7 @@ namespace JTS.WindowsForms.Controls
                                 SeparatorDistance,
                                 this.Bounds.Height
                                 );
+                        }
                         break;
                     case DrawTypes.CheckBoxFiller:
                         Color color;
@@ -457,6 +494,9 @@ namespace JTS.WindowsForms.Controls
                                 color = CheckboxActiveColor;
                             else
                                 color = CheckboxBackgroundColor;
+
+                            if (!this.Enabled && !confirmed)
+                                color = DisabledCheckBoxBackgroundColor;
 
                             using (SolidBrush brush = new SolidBrush(color))
                             {
@@ -472,7 +512,9 @@ namespace JTS.WindowsForms.Controls
 
                         if (shouldFillCheckBoxArea)
                         {
-                            using (SolidBrush brush = new SolidBrush(ActiveColor))
+                            color = this.Enabled ? ActiveColor : DisabledCheckBoxBackgroundColor;
+
+                            using (SolidBrush brush = new SolidBrush(color))
                             {
                                 paintEventArgs.Graphics.FillRectangle(
                                     brush,

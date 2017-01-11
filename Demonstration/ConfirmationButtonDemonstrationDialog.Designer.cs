@@ -32,6 +32,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.regularCancelButton = new JTS.WindowsForms.Controls.Button();
             this.confirmationButton = new JTS.WindowsForms.Controls.Button();
             this.SuspendLayout();
@@ -73,6 +74,16 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Size: 86 bytes";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(15, 135);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // regularCancelButton
             // 
             this.regularCancelButton.ActiveColor = System.Drawing.Color.FromArgb(((int)(((byte)(205)))), ((int)(((byte)(224)))), ((int)(((byte)(235)))));
@@ -93,6 +104,9 @@
             this.regularCancelButton.ConfirmedCheckmarkColor = System.Drawing.Color.Empty;
             this.regularCancelButton.DisabledBackgroundColor = System.Drawing.Color.Empty;
             this.regularCancelButton.DisabledBorderColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.DisabledCheckBoxBackgroundColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.DisabledCheckmarkColor = System.Drawing.Color.Empty;
+            this.regularCancelButton.DisabledSeparatorColor = System.Drawing.Color.Empty;
             this.regularCancelButton.FocusedBorderStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             this.regularCancelButton.FocusedColor = System.Drawing.Color.Empty;
             this.regularCancelButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(235)))), ((int)(((byte)(242)))));
@@ -128,6 +142,9 @@
             this.confirmationButton.ConfirmedCheckmarkColor = System.Drawing.Color.White;
             this.confirmationButton.DisabledBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.confirmationButton.DisabledBorderColor = System.Drawing.Color.Silver;
+            this.confirmationButton.DisabledCheckBoxBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.confirmationButton.DisabledCheckmarkColor = System.Drawing.Color.Silver;
+            this.confirmationButton.DisabledSeparatorColor = System.Drawing.Color.Silver;
             this.confirmationButton.FocusedBorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             this.confirmationButton.FocusedColor = System.Drawing.Color.Silver;
             this.confirmationButton.HighlightColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -148,6 +165,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 187);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.regularCancelButton);
             this.Controls.Add(this.confirmationButton);
             this.Controls.Add(this.label4);
@@ -171,5 +189,6 @@
         private System.Windows.Forms.Label label4;
         private JTS.WindowsForms.Controls.Button confirmationButton;
         private JTS.WindowsForms.Controls.Button regularCancelButton;
+        private System.Windows.Forms.Button button1;
     }
 }
