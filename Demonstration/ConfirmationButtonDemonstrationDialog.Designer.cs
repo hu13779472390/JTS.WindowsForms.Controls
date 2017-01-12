@@ -34,6 +34,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.regularCancelButton = new JTS.WindowsForms.Controls.Button();
             this.confirmationButton = new JTS.WindowsForms.Controls.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -151,11 +152,23 @@
             this.confirmationButton.UsingTexturedBackground = false;
             this.confirmationButton.Confirmed += new System.EventHandler<JTS.WindowsForms.Controls.Button.ButtonConfirmedEventArgs>(this.confirmationButton_Confirmed);
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 153);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(174, 17);
+            this.checkBox1.TabIndex = 6;
+            this.checkBox1.Text = "Disable Confirmation Button";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // ConfirmationButtonDemonstrationDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(403, 187);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.regularCancelButton);
             this.Controls.Add(this.confirmationButton);
             this.Controls.Add(this.label4);
@@ -179,5 +192,6 @@
         private System.Windows.Forms.Label label4;
         private JTS.WindowsForms.Controls.Button confirmationButton;
         private JTS.WindowsForms.Controls.Button regularCancelButton;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }

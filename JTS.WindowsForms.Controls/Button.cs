@@ -164,6 +164,7 @@ namespace JTS.WindowsForms.Controls
         protected internal Color checkBoxColor;
         protected internal Color backgroundColor;
         protected internal Color separatorColor;
+        protected internal Color defBCol;
         #endregion
 
         #region Internal Enumerations
@@ -191,10 +192,12 @@ namespace JTS.WindowsForms.Controls
 
             set
             {
-                base.Enabled = value;
-                this.BackColor = DisabledBackgroundColor;
+                if (!this.Enabled)
+                    this.BackColor = DisabledBackgroundColor;
+                else
+                    this.BackColor = defBCol;
 
-                this.Refresh();
+                base.Enabled = value;
             }
         }
 
@@ -686,6 +689,9 @@ namespace JTS.WindowsForms.Controls
         {
             /* I think this is where we draw a custom rectangle around a 
             * control that has just received focus. */
+            if (this.Enabled)
+                this.BackColor = defBCol;
+
             buttonHasFocus = true;
             this.Refresh();
         }
@@ -727,6 +733,7 @@ namespace JTS.WindowsForms.Controls
             SetStyles();
 
             defaultBackgroundColor = this.BackColor;
+            defBCol = this.BackColor;
         }
         #endregion
 

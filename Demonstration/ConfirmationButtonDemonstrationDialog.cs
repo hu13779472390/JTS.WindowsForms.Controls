@@ -27,9 +27,9 @@ namespace Demonstration
             //this.DialogResult = DialogResult.OK;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (confirmationButton.Enabled)
+            if (((CheckBox)sender).Checked)
             {
                 confirmationButton.Enabled = false;
             }
